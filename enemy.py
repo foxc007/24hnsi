@@ -7,7 +7,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, start_x, start_y):
         pygame.sprite.Sprite.__init__(self)        #Appel du constructeur de Sprite
         self.coordinates = (start_x, start_y)
-        self.image, self.rect = fileutils.load_image('testsquare.png', -1)
+        self.image, self.rect = fileutils.load_image('testsquare.png')
         screen = pygame.display.get_surface()
         
 

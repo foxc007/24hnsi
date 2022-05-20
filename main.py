@@ -47,6 +47,7 @@ def main():
 
 def create_enemy(start_x, start_y):
     enemies.append(Enemy(start_x, start_y))
+    main_sprites.add(Enemy(start_x, start_y))
 
 if __name__ == '__main__':
     main()
