@@ -3,7 +3,7 @@ import sys
 import pygame
 import random
 from pygame.locals import *
-from enemy import Enemy
+from sprites.enemy import Enemy
 
 if not pygame.font:
     print('Attention, polices désactivées')
