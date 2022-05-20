@@ -11,6 +11,7 @@ if not pygame.mixer:
 
 
 def main():
+    global running
     # Initialisation de pygame
     pygame.init()
     screenInfos = pygame.display.Info()
@@ -31,19 +32,31 @@ def main():
     main_sprites = pygame.sprite.Group()
     enemy_sprites = pygame.sprite.Group()
     clock = pygame.time.Clock()
-    print(pygame.sprite.Group())
     running = True
 
+    def handle_events():
+        global running
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                running = False
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    running = False
+
     def render():
-        enemy_sprites.draw()
         screen.blit(background, (0, 0))
         main_sprites.draw(screen)
+        enemy_sprites.draw(screen)
         pygame.display.flip()
+
+    enemy_sprites.add(Enemy(200, 200))
 
     while running:
         clock.tick(60)
+        handle_events()
         render()
 
 
 if __name__ == '__main__':
     main()
+    sys.exit()
