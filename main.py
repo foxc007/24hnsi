@@ -30,14 +30,20 @@ def main():
     pygame.display.flip()
 
     main_sprites = pygame.sprite.Group()
+    enemy_sprites = pygame.sprite.Group()
     clock = pygame.time.Clock()
-
+    print(pygame.sprite.Group())
     running = True
 
     def render():
+        enemy_sprites.draw()
         screen.blit(background, (0, 0))
         main_sprites.draw(screen)
         pygame.display.flip()
+
+    def create_enemy(start_x, start_y):
+        enemies.append(Enemy(start_x, start_y))
+        enemy_sprites.add(Enemy(start_x, start_y))
 
     create_enemy(200, 200)
 
@@ -45,9 +51,7 @@ def main():
         clock.tick(60)
         render()
 
-def create_enemy(start_x, start_y):
-    enemies.append(Enemy(start_x, start_y))
-    main_sprites.add(Enemy(start_x, start_y))
+
 
 if __name__ == '__main__':
     main()
