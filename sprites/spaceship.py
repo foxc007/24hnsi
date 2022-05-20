@@ -13,10 +13,11 @@ class Spaceship(pygame.sprite.Sprite):
         self.speed = 10
 
     def update(self, keys_pressed: list):
-        if K_LEFT in keys_pressed:
-            self.move_left()
-        elif K_RIGHT in keys_pressed:
-            self.move_right()
+        if not (K_LEFT in keys_pressed and K_RIGHT in keys_pressed):
+            if K_LEFT in keys_pressed:
+                self.move_left()
+            elif K_RIGHT in keys_pressed:
+                self.move_right()
 
     def move_right(self):
         if self.rect.right + self.speed > self.screen_size[0]:
