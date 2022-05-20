@@ -9,7 +9,6 @@ if not pygame.font:
 if not pygame.mixer:
     print('Attention, son désactivé')
 
-enemies = []
 
 def main():
     # Initialisation de pygame
@@ -41,16 +40,9 @@ def main():
         main_sprites.draw(screen)
         pygame.display.flip()
 
-    def create_enemy(start_x, start_y):
-        enemies.append(Enemy(start_x, start_y))
-        enemy_sprites.add(Enemy(start_x, start_y))
-
-    create_enemy(200, 200)
-
     while running:
         clock.tick(60)
         render()
-
 
 
 if __name__ == '__main__':
