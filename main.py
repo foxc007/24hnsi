@@ -44,6 +44,10 @@ def main():
                 if event.key == K_ESCAPE:
                     running = False
 
+    def logic():
+        main_sprites.update()
+        enemy_sprites.update()
+
     def render():
         screen.blit(background, (0, 0))
         main_sprites.draw(screen)
@@ -55,10 +59,10 @@ def main():
 
     enemy_sprites.add(Enemy(x, y))
 
-    
     while running:
         clock.tick(60)
         handle_events()
+        logic()
         render()
 
 
