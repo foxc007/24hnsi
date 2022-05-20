@@ -1,6 +1,7 @@
 import os
 import sys
 import pygame
+import random
 from pygame.locals import *
 from enemy import Enemy
 
@@ -49,8 +50,12 @@ def main():
         enemy_sprites.draw(screen)
         pygame.display.flip()
 
-    enemy_sprites.add(Enemy(200, 200))
+    x = random.randint(0, width)
+    y = height * 0.1
 
+    enemy_sprites.add(Enemy(x, y))
+
+    
     while running:
         clock.tick(60)
         handle_events()
