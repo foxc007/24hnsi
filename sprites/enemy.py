@@ -13,6 +13,6 @@ class Enemy(pygame.sprite.Sprite):
         
 
     def update(self):
-        
-        pass
+        self.coordinates = (self.coordinates[0], self.coordinates[1] + 0.5)
+        self.rect.topleft = self.coordinates
         # Update

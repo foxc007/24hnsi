@@ -54,10 +54,10 @@ def main():
         enemy_sprites.draw(screen)
         pygame.display.flip()
 
-    x = random.randint(0, width)
-    y = height * 0.1
-
-    enemy_sprites.add(Enemy(x, y))
+    for i in range(8):
+        x = random.randint(0, width)
+        y = height * 0.1
+        enemy_sprites.add(Enemy(x, y))
 
     while running:
         clock.tick(60)
