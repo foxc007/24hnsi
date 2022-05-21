@@ -203,19 +203,6 @@ class Game:
             pygame.draw.rect(self.screen,(128,128,128),(180,20,150,30))
             self.menu_opened = True
             self.keys_pressed = []
-            local_running = True
-            while local_running:
-                self.clock.tick(60)
-                for event in pygame.event.get():
-                    if event.type == QUIT:
-                        self.running = False
-                        local_running = False
-                    elif event.type == KEYDOWN:
-                        if event.key == K_ESCAPE:
-                            self.running = False
-                            local_running = False
-                        if event.key == K_SPACE:
-                            local_running = False
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
