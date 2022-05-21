@@ -36,9 +36,7 @@ class Game:
 
         self.alien_death_sounds = []
         self.alien_death_sounds.append(
-            fileutils.load_sound('alien_sound1.ogg'))
-        self.alien_death_sounds.append(
-            fileutils.load_sound('alien_sound2.ogg'))
+            fileutils.load_sound('alien_sound.ogg'))
 
         self.boss_music = fileutils.load_sound('boss_music.ogg')
 

@@ -47,6 +47,7 @@ class Spaceship(pygame.sprite.Sprite):
             break
         if hit:
             self.game.remove_health()
+            pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/player_hurt.ogg'))
 
     def move(self):
         if self.rect.centerx + self.inertia > self.screen_size[0]:
