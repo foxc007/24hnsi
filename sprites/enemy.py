@@ -24,7 +24,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         if self.enemy_type == 0:
-            self.coordinates = (self.coordinates[0], self.coordinates[1] + 5 * self.game.speed_coef)
+            self.coordinates = (self.coordinates[0], self.coordinates[1] + 2 * self.game.speed_coef)
             self.rect.topleft = self.coordinates
             if self.coordinates[1] > screenutils.get_heigth():
                 self.delete()

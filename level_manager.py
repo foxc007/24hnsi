@@ -9,9 +9,10 @@ class LevelManager:
 
 
     def run_level(self):
-        for i in range(15):
+        for i in range(5):
             self.create_enemy()
             self.enemies += 1
+        self.game.speed_coef += 0.1
         pass
 
     def create_enemy(self):
