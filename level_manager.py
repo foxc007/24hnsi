@@ -1,6 +1,6 @@
 import random
 from utils import screenutils
-from sprites import enemy
+import sprites.enemies.warrior
 
 
 class LevelManager:
@@ -19,7 +19,7 @@ class LevelManager:
     def create_enemy(self):
         x = random.randint(0, screenutils.get_width())
         y = screenutils.get_heigth() * 0.05
-        self.game.enemy_sprites.add(enemy.Enemy(self, x, y, 0, self.game))
+        self.game.enemy_sprites.add(sprites.enemies.warrior.Warrior(self.game, self, (x, y), 1))
         pass
 
     def on_enemy_deleted(self):

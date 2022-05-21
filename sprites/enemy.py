@@ -16,10 +16,11 @@ class Enemy(pygame.sprite.Sprite):
         self.on_update = options["on_update"]
         self.image, self.rect = fileutils.load_image(options["image"])
         self.life = options["life"]
-        if options["size"] is not None:
+        if  list(options.keys()).count("size") > 0:
             self.rect.size = options["size"]
         else:
             self.rect.size = (64, 64)
+        self.image = pygame.transform.scale(self.image, self.rect.size)
         self.rect.center = pos
 
     def delete(self):
