@@ -17,7 +17,7 @@ class LevelManager:
 
     def create_enemy(self):
         x = random.randint(0, screenutils.get_width())
-        y = screenutils.get_heigth() * 0.1
+        y = screenutils.get_heigth() * 0.05
         self.game.enemy_sprites.add(enemy.Enemy(self, x, y, 0, self.game))
         pass
 
