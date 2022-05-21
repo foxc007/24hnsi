@@ -85,7 +85,7 @@ class Game:
 
         self.running = True
         self.font = pygame.font.SysFont(None, 48)
-
+        self.has_played = False
         while self.running:
             self.clock.tick(60)
             self.handle_events()
@@ -116,6 +116,10 @@ class Game:
         self.screen.blit(button1, (415, 525))
         self.screen.blit(button2, (825, 525))
         self.screen.blit(button3, (1380, 525))
+
+        if self.has_played:
+            hp_text = self.font.render('YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
+            self.screen.blit(hp_text, (self.width / 2, self.height / 2))
         pygame.display.flip()
 
         if not (K_RIGHT in self.keys_pressed and K_LEFT in self.keys_pressed):
@@ -145,10 +149,14 @@ class Game:
                     pygame.quit()
 
     def run_game(self):
-        self.level_manager = level_manager.LevelManager(self)
-        self.level_manager.run_level()
         self.health = 3
         self.score = 0
+        self.enemy_sprites.empty()
+        self.enemy_bullet_sprites.empty()
+        self.level_manager = level_manager.LevelManager(self)
+        self.level_manager.run_level()
+        self.switch_music()
+        self.has_played = True
 
 
     def switch_music(self):
@@ -208,17 +216,6 @@ class Game:
                             local_running = False
                         if event.key == K_SPACE:
                             local_running = False
-                hp_text = self.font.render(
-                    'YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
-                self.screen.blit(hp_text, (self.width / 2, self.height / 2))
-                pygame.display.flip()
-            self.health = 3
-            self.score = 0
-            self.enemy_sprites.empty()
-            self.enemy_bullet_sprites.empty()
-            self.level_manager = level_manager.LevelManager(self)
-            self.level_manager.run_level()
-            self.switch_music()
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
