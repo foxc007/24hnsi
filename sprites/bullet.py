@@ -4,22 +4,24 @@ from utils import fileutils
 import level_manager
 from utils import screenutils
 
+
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, start_x, start_y, bullet_type):
-        pygame.sprite.Sprite.__init__(self)        #Appel du constructeur de Sprite
+    def __init__(self, game, start_x, start_y, bullet_type):
+        pygame.sprite.Sprite.__init__(self)  # Appel du constructeur de Sprite
+        self.game = game
         self.level_manager = level_manager
         self.bullet_type = bullet_type
-        self.coordinates = (start_x, start_y)
         if self.bullet_type == 0:
             self.image, self.rect = fileutils.load_image('bullet.jpg')
-        self.rect.topleft = self.coordinates
+            self.rect.size = (50, 50)
+            self.image = pygame.transform.scale(
+                self.image, (self.rect.width, self.rect.height))
+        self.rect.centerx, self.rect.bottom = start_x, start_y+30
         screen = pygame.display.get_surface()
-        
 
     def update(self):
         if self.bullet_type == 0:
-            self.coordinates = (self.coordinates[0], self.coordinates[1] - 2)
-            self.rect.topleft = self.coordinates
-            if self.coordinates[1] > screenutils.get_heigth():
+            self.rect.top -= 2
+            if self.rect.top < 0:
                 self.kill()
         # Update

@@ -27,8 +27,6 @@ class Spaceship(pygame.sprite.Sprite):
             self.last_shot_time = time.time()
             self.shoot()
 
-
-
     def move_right(self):
         if self.rect.right + self.speed > self.screen_size[0]:
             self.rect.right = self.screen_size[0]
@@ -42,5 +40,5 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.left -= self.speed
 
     def shoot(self):
-        self.game.enemy_sprites.add(bullet.Bullet(self.rect.centerx, self.rect.centery, 0))
-        pass
+        self.game.enemy_sprites.add(bullet.Bullet(self.game,
+                                                  self.rect.centerx, self.rect.top, 0))
