@@ -7,9 +7,8 @@ class Warrior(Enemy):
     def __init__(self, game, level_manager, pos, tier):
         assert tier in [1, 2, 3]
         options = {}
-        options["image"] = f"warrior${tier}.png"
-        if tier == 1:
-            options["life"] = 1
+        options["image"] = f"ennemies/warrior${tier}.png"
+        options["life"] = tier
 
         def on_update(self):
             self.rect.top += 1
