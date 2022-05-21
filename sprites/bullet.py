@@ -17,11 +17,11 @@ class Bullet(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(
                 self.image, (self.rect.width, self.rect.height))
         self.rect.centerx, self.rect.bottom = start_x, start_y+30
-        screen = pygame.display.get_surface()
+        screen = pygame.display.get_surface() 
 
     def update(self):
         if self.bullet_type == 0:
-            self.rect.top -= 2
+            self.rect.top -= 25
             if self.rect.top < 0:
                 self.kill()
         # Update
