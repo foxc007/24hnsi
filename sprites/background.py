@@ -2,18 +2,22 @@ import pygame
 from pygame.locals import *
 from utils import fileutils
 
-class Background(pygame.sprite.Sprite): 
+
+class Background(pygame.sprite.Sprite):
     """Background class"""
+
     def __init__(self, game):
         self.game = game
-        pygame.sprite.Sprite.__init__(self)        #Appel du constructeur de Sprite
+        pygame.sprite.Sprite.__init__(self)  # Appel du constructeur de Sprite
         self.image, self.rect = fileutils.load_image("ingame_background.png")
         self.screen_width, self.screen_height = pygame.display.get_window_size()
-        self.image = pygame.transform.scale(self.image, (self.screen_width, self.screen_width*2))
-        self.rect.update((0,-self.screen_height),(self.screen_width, self.screen_width*2))
+        self.image = pygame.transform.scale(
+            self.image, (self.screen_width, self.screen_width*2))
+        self.rect.update((0, -self.screen_height),
+                         (self.screen_width, self.screen_width*2))
 
         self.scrolling = False
-        self.speed = 1 * self.game.speed_coef
+
 
     def start(self):
         self.scrolling = True
@@ -26,11 +30,9 @@ class Background(pygame.sprite.Sprite):
         self.rect.centery = 0
 
     def update(self):
+        self.speed = 1 * self.game.speed_coef
         if self.scrolling:
             if self.rect.centery > self.screen_width:
                 self.rect.centery = self.rect.centery-self.screen_width
             else:
                 self.rect.centery += self.speed
-        
-
-        
