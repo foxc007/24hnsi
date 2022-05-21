@@ -36,9 +36,7 @@ class Game:
 
         self.alien_death_sounds = []
         self.alien_death_sounds.append(
-            fileutils.load_sound('alien_sound1.ogg'))
-        self.alien_death_sounds.append(
-            fileutils.load_sound('alien_sound2.ogg'))
+            fileutils.load_sound('alien_sound.ogg'))
 
         self.boss_music = fileutils.load_sound('boss_music.ogg')
 
@@ -114,6 +112,7 @@ class Game:
     def remove_health(self):
         self.health = self.health - 1
         if self.health <= 0:
+            pygame.mixer.Sound.play(pygame.mixer.Sound(self.player_death))
             self.keys_pressed = []
             local_running = True
             while local_running:
@@ -144,6 +143,10 @@ class Game:
 
         hp_text = self.font.render(
             'HP : ' + str(self.health), True, (245, 14, 78))
+        pygame.draw.rect(self.screen, (128, 128, 128), (180, 20, 150, 30))
+        pygame.draw.rect(self.screen, (0, 255, 0),
+                         (180, 20, 50*self.health, 30))
+
         self.screen.blit(hp_text, (20, 20))
 
         score_text = self.font.render(
