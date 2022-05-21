@@ -127,6 +127,9 @@ class Game:
                 pygame.display.flip()
             self.health = 3
             self.score = 0
+            self.enemy_sprites.empty()
+            self.level_manager = level_manager.LevelManager(game)
+            self.level_manager.run_level()
 
 
     def render(self):
