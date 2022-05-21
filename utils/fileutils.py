@@ -18,7 +18,7 @@ def load_image(path, colorkey=None):
             image = image.convert_alpha()
     except pygame.error as error:
         print("Impossible de charger l'image :", path)
-        raise SystemExit(error.message)
+        raise SystemExit(error)
     return image, image.get_rect()
 
 
