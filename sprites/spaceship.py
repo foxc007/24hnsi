@@ -32,6 +32,9 @@ class Spaceship(pygame.sprite.Sprite):
             else:
                 self.inertia = self.inertia/1.1
             self.move()
+        else:
+            self.inertia = self.inertia/1.1
+            self.move()
 
 
         if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.reload_time / 1000:
