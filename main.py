@@ -163,13 +163,14 @@ class Game:
         if self.music == 0:
             pygame.mixer.music.unload()
             pygame.mixer.music.load('assets/sounds/musique_2.ogg')
+            pygame.mixer.music.queue('assets/sounds/musique_2.ogg',"ogg",-1)
             pygame.mixer.music.play()
             self.music = 1
         else:
             pygame.mixer.music.unload()
             pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
             pygame.mixer.music.play()
-            pygame.mixer.music.queue('assets/sounds/loop_musique.ogg')
+            pygame.mixer.music.queue('assets/sounds/loop_musique.ogg',"ogg",-1)
             self.music = 0
 
     def handle_events(self):
