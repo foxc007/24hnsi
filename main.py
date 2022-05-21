@@ -31,9 +31,10 @@ class Game:
         self.screen.blit(self.background.image, self.background.rect)
         pygame.display.flip()
 
-        #pygame.mixer.init()
-        #self.music_intro = pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
-        #pygame.mixer.music.play(self.music_intro)
+        pygame.mixer.init()
+        pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
+        pygame.mixer.music.play()
+        pygame.mixer.music.queue('assets/sounds/loop_musique.ogg','ogg',-1)
 
 
         self.main_sprites = pygame.sprite.Group()
