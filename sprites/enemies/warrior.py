@@ -10,6 +10,12 @@ class Warrior(Enemy):
         options = {}
         options["image"] = f"enemies/warrior{tier}.png"
         options["life"] = tier
+        if tier == 1:
+            options["score"] = 1
+        elif tier == 2:
+            options["score"] = 3
+        elif tier == 3:
+            options["score"] = 5
 
         def on_update(self):
             if self.rect.top < 50:
