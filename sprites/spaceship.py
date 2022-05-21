@@ -40,6 +40,13 @@ class Spaceship(pygame.sprite.Sprite):
         if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.reload_time / 1000:
             self.last_shot_time = time.time()
             self.shoot()
+        hit = False
+        for bullet_collided in pygame.sprite.spritecollide(self, self.game.enemy_bullet_sprites, False):
+            bullet_collided.kill()
+            hit = True
+            break
+        if hit:
+            self.game.remove_health()
 
     def move(self):
         if self.rect.centerx + self.inertia > self.screen_size[0]:
