@@ -193,6 +193,7 @@ class Game:
         if self.health <= 0:
             pygame.mixer.Sound.play(pygame.mixer.Sound(self.player_death))
             pygame.draw.rect(self.screen,(128,128,128),(180,20,150,30))
+            self.menu_opened = True
             self.keys_pressed = []
             local_running = True
             while local_running:
