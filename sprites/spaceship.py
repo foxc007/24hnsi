@@ -40,6 +40,13 @@ class Spaceship(pygame.sprite.Sprite):
         if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.reload_time / 1000:
             self.last_shot_time = time.time()
             self.shoot()
+        hit = False
+        for bullet_collided in pygame.sprite.spritecollide(self, self.game.enemy_bullet_sprites, False):
+            bullet_collided.kill()
+            hit = True
+            break
+        if hit:
+            self.game.remove_health()
 
     def move(self):
         if self.rect.centerx + self.inertia > self.screen_size[0]:
@@ -50,5 +57,5 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.centerx += round(self.inertia)
 
     def shoot(self):
-        self.game.bullet_sprites.add(bullet.Bullet(self.game,
-                                                   self.rect.centerx, self.rect.top, 0))
+        self.game.bullet_sprites.add(bullet.Bullet(self.game,self.rect.centerx, self.rect.top, 0))
+        pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/shoot_sound.ogg'))

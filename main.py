@@ -109,6 +109,7 @@ class Game:
     def remove_health(self):
         self.health = self.health - 1
         if self.health <= 0:
+            self.keys_pressed = []
             local_running = True
             while local_running:
                 self.clock.tick(60)
@@ -126,7 +127,11 @@ class Game:
                 self.screen.blit(hp_text, (self.width / 2, self.height / 2))
                 pygame.display.flip()
             self.health = 3
-            self.score = 0
+            self.score = 0 
+            self.enemy_sprites.empty()
+            self.enemy_bullet_sprites.empty()
+            self.level_manager = level_manager.LevelManager(self)
+            self.level_manager.run_level()
 
 
     def render(self):
