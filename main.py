@@ -36,9 +36,7 @@ class Game:
 
         self.alien_death_sounds = []
         self.alien_death_sounds.append(
-            fileutils.load_sound('alien_sound1.ogg'))
-        self.alien_death_sounds.append(
-            fileutils.load_sound('alien_sound2.ogg'))
+            fileutils.load_sound('alien_sound.ogg'))
 
         self.boss_music = fileutils.load_sound('boss_music.ogg')
 
@@ -55,6 +53,11 @@ class Game:
         self.background.start()
         self.screen.blit(self.background.image, self.background.rect)
         pygame.display.flip()
+
+        self.images = {}
+        self.images["bullet"] = fileutils.load_image("bullet.png")
+        self.images["simple_enemy_bullet"] = fileutils.load_image(
+            "simple_enemy_bullet.png")
 
         pygame.mixer.init()
         pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
@@ -111,6 +114,8 @@ class Game:
     def remove_health(self):
         self.health = self.health - 1
         if self.health <= 0:
+            pygame.mixer.Sound.play(pygame.mixer.Sound(self.player_death))
+            pygame.draw.rect(self.screen,(128,128,128),(180,20,150,30))
             self.keys_pressed = []
             local_running = True
             while local_running:
@@ -125,24 +130,30 @@ class Game:
                             local_running = False
                         if event.key == K_SPACE:
                             local_running = False
-                hp_text = self.font.render('YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
+                hp_text = self.font.render(
+                    'YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
                 self.screen.blit(hp_text, (self.width / 2, self.height / 2))
                 pygame.display.flip()
             self.health = 3
-            self.score = 0 
+            self.score = 0
             self.enemy_sprites.empty()
             self.enemy_bullet_sprites.empty()
             self.level_manager = level_manager.LevelManager(self)
             self.level_manager.run_level()
 
-
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
 
-        hp_text = self.font.render('HP : ' + str(self.health), True, (245, 14, 78))
+        hp_text = self.font.render(
+            'HP : ' + str(self.health), True, (245, 14, 78))
+        pygame.draw.rect(self.screen, (128, 128, 128), (180, 20, 150, 30))
+        pygame.draw.rect(self.screen, (0, 255, 0),
+                         (180, 20, 50*self.health, 30))
+
         self.screen.blit(hp_text, (20, 20))
 
-        score_text = self.font.render('Score : ' + str(self.score), True, (245, 14, 78))
+        score_text = self.font.render(
+            'Score : ' + str(self.score), True, (245, 14, 78))
         self.screen.blit(score_text, (20, 60))
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
