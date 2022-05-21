@@ -28,7 +28,7 @@ class Striker(Enemy):
                 self.rect.x += 5*sin(t+self.random_angle)
                 self.enter_screen_or_shoot()
 
-        if self.tier == 2:
+        elif self.tier == 2:
             # Random angle mesured in gradients
             if sync:
                 self.random_angle = 0
@@ -42,9 +42,25 @@ class Striker(Enemy):
             def on_update(self):
                 t = time.time()
                 if self.enter_screen_or_shoot():
-                    self.rect.x += round(4*sin((t+self.random_angle))
-                                         * self.rotation_direction)
+                    self.rect.x += round(4*sin((t+self.random_angle)))
                     self.rect.y += round(4*cos(t+self.random_angle))
+
+        elif self.tier == 3:
+            # Random angle mesured in gradients
+            if sync:
+                self.random_angle = 0
+                self.rotation_direction = 1
+            else:
+                self.random_angle = randint(0, 360) / 180 * pi
+                self.rotation_direction = randint(0, 1)
+                if self.rotation_direction == 0:
+                    self.rotation_direction = -1
+
+            def on_update(self):
+                t = time.time()
+                if self.enter_screen_or_shoot():
+                    self.rect.x += round(6*sin(t+self.random_angle))
+                    self.rect.y += round(4*cos(2*(t+self.random_angle)))
 
         options["on_update"] = on_update
         Enemy.__init__(self, game, level_manager, pos, options)
