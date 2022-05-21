@@ -107,6 +107,7 @@ class Game:
     def remove_health(self):
         self.health = self.health - 1
         if self.health <= 0:
+            pygame.mixer.Sound.play(pygame.mixer.Sound(self.player_death))
             self.keys_pressed = []
             local_running = True
             while local_running:
