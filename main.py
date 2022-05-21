@@ -119,7 +119,7 @@ class Game:
 
         if self.has_played:
             hp_text = self.font.render('YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
-            self.screen.blit(hp_text, (self.width / 2, self.height / 2))
+            self.screen.blit(hp_text, ((self.width / 2)-200, (self.height / 2)-200))
         pygame.display.flip()
 
         if not (K_RIGHT in self.keys_pressed and K_LEFT in self.keys_pressed):
