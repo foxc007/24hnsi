@@ -7,6 +7,7 @@ from sprites.spaceship import Spaceship
 from sprites.enemy import Enemy
 from sprites.background import Background
 import level_manager
+from utils import fileutils
 
 if not pygame.font:
     print('Attention, polices désactivées')
@@ -20,6 +21,24 @@ class Game:
         screenInfos = pygame.display.Info()
         self.width = screenInfos.current_w
         self.height = screenInfos.current_h
+
+        self.alien_death_sounds = []
+        self.alien_death_sounds.append(fileutils.load_sound('alien_death1.ogg'))
+        self.alien_death_sounds.append(fileutils.load_sound('alien_death2.ogg'))
+        self.alien_death_sounds.append(fileutils.load_sound('alien_death3.ogg'))
+        self.alien_death_sounds.append(fileutils.load_sound('alien_death4.ogg'))
+        self.alien_death_sounds.append(fileutils.load_sound('alien_death5.ogg'))
+
+        self.alien_death_sounds = []
+        self.alien_death_sounds.append(fileutils.load_sound('alien_sound1.ogg'))
+        self.alien_death_sounds.append(fileutils.load_sound('alien_sound2.ogg'))
+
+        self.boss_music = fileutils.load_sound('boss_music.ogg')
+
+        self.menu_sound = fileutils.load_sound('menu_sound.ogg')
+
+        self.player_death = fileutils.load_sound('player_death.ogg')
+
 
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Space invaders')
