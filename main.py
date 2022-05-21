@@ -72,6 +72,7 @@ class Game:
     def logic(self):
         self.spaceship.update(self.keys_pressed)
         self.background.update()
+        self.bullet_sprites.update()
         self.enemy_sprites.update()
 
     def render(self):

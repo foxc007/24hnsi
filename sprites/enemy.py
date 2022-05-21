@@ -17,12 +17,15 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.topleft = self.coordinates
         screen = pygame.display.get_surface()
         
+    def delete(self):
+            self.level_manager.on_enemy_deleted()
+            self.kill()
+
 
     def update(self):
         if self.enemy_type == 0:
             self.coordinates = (self.coordinates[0], self.coordinates[1] + 5 * self.game.speed_coef)
             self.rect.topleft = self.coordinates
             if self.coordinates[1] > screenutils.get_heigth():
-                self.level_manager.on_enemy_deleted()
-                self.kill()
+                self.delete()
         # Update

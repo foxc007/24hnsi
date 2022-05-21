@@ -40,5 +40,5 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.left -= self.speed
 
     def shoot(self):
-        self.game.enemy_sprites.add(bullet.Bullet(self.game,
+        self.game.bullet_sprites.add(bullet.Bullet(self.game,
                                                   self.rect.centerx, self.rect.top, 0))
