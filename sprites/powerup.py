@@ -11,10 +11,7 @@ class Powerup(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)  # Appel du constructeur de Sprite
         self.game = game
         self.powerup_type = powerup_type
-        if powerup_type == 0:
-            self.image, self.rect = fileutils.load_image('gati.jpg')
-        elif powerup_type == 1:
-            self.image, self.rect = fileutils.load_image('gato.jpg')
+        self.image, self.rect = fileutils.load_image('powerup.png')
         self.image = pygame.transform.scale(self.image, self.rect.size)
         self.rect.center = pos
 
