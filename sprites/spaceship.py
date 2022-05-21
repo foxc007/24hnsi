@@ -57,5 +57,5 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.centerx += round(self.inertia)
 
     def shoot(self):
-        self.game.bullet_sprites.add(bullet.Bullet(self.game,
-                                                   self.rect.centerx, self.rect.top, 0))
+        self.game.bullet_sprites.add(bullet.Bullet(self.game,self.rect.centerx, self.rect.top, 0))
+        pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/shoot_sound.ogg'))
