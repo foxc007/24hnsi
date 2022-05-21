@@ -29,6 +29,7 @@ class Bullet(pygame.sprite.Sprite):
         for enemy_hit in pygame.sprite.spritecollide(self, self.game.enemy_sprites, False):
             enemy_hit.delete()
             hit = True
+            break
         if hit:
             self.kill()
         # Update
