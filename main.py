@@ -8,6 +8,7 @@ from sprites.enemy import Enemy
 from sprites.background import Background
 import level_manager
 from utils import fileutils, screenutils
+import time
 
 if not pygame.font:
     print('Attention, polices désactivées')
@@ -21,7 +22,7 @@ class Game:
         screenInfos = pygame.display.Info()
         self.width = screenInfos.current_w
         self.height = screenInfos.current_h
-
+        self.last_music_change = 0
         self.alien_death_sounds = []
         self.alien_death_sounds.append(
             fileutils.load_sound('alien_death1.ogg'))
@@ -63,11 +64,11 @@ class Game:
         pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
         pygame.mixer.music.play()
         pygame.mixer.music.queue('assets/sounds/loop_musique.ogg', 'ogg', -1)
+        self.music = 0
 
         self.main_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
-        self.powerup_sprites = pygame.sprite.Group()
         self.enemy_bullet_sprites = pygame.sprite.Group()
         self.spaceship = Spaceship(self.screen, self)
         self.spaceship.add(self.main_sprites)
@@ -91,6 +92,18 @@ class Game:
             self.logic()
             self.render()
 
+    def switch_music(self):
+        if self.music == 0:
+            pygame.mixer.music.unload()
+            pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
+            pygame.mixer.music.play()
+            self.music = 1
+        else:
+            pygame.mixer.music.unload()
+            pygame.mixer.music.load('assets/sounds/musique_2.ogg')
+            pygame.mixer.music.play()
+            self.music = 0
+
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -98,6 +111,10 @@ class Game:
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     self.running = False
+
+                if event.key == K_RETURN and time.time() - self.last_music_change > 5:
+                    self.last_music_change = time.time()
+                    self.switch_music()
                 self.keys_pressed.append(event.key)
             elif event.type == KEYUP:
                 if event.key in self.keys_pressed:
@@ -107,7 +124,6 @@ class Game:
         self.spaceship.update(self.keys_pressed)
         self.background.update()
         self.bullet_sprites.update()
-        self.powerup_sprites.update()
         self.enemy_sprites.update()
         self.enemy_bullet_sprites.update()
 
@@ -157,7 +173,6 @@ class Game:
         self.screen.blit(score_text, (20, 60))
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
-        self.powerup_sprites.draw(self.screen)
         self.enemy_sprites.draw(self.screen)
         self.enemy_bullet_sprites.draw(self.screen)
         pygame.display.flip()
