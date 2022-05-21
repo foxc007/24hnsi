@@ -12,7 +12,8 @@ class LevelManager:
         for i in range(3):
             self.create_enemy()
             self.enemies += 1
-        self.game.speed_coef += 0.1
+        if (self.game.speed_coef < 3):
+            self.game.speed_coef += 0.1
         pass
 
     def create_enemy(self):
