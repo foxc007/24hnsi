@@ -19,7 +19,7 @@ class Striker(Enemy):
         if self.tier == 1:
             # Random angle mesured in gradients
             if sync:
-                angle = 0
+                self.random_angle = 0
             else:
                 self.random_angle = randint(0, 360) / 180 * pi
 
