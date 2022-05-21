@@ -11,6 +11,7 @@ class Warrior(Enemy):
         if tier == 1:
             options["life"] = 1
 
-            def on_update(self):
-                self.rect.top += 1
+        def on_update(self):
+            self.rect.top += 1
+        options["on_update"] = on_update
         Enemy.__init__(game, level_manager, pos, options)
