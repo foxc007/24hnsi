@@ -13,7 +13,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.screen_size = screen.get_size()
         self.rect.centerx = self.screen_size[0] / 2
         self.rect.y = self.screen_size[1]*5//6
-        self.base_speed = 10
+        self.base_speed = 8
         self.base_reload_time = 1000
         self.last_shot_time = 0
 
