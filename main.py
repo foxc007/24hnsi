@@ -31,6 +31,7 @@ class Game:
         pygame.display.flip()
 
         self.main_sprites = pygame.sprite.Group()
+        self.bullet_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
         self.spaceship = Spaceship(self.screen, self)
         self.spaceship.add(self.main_sprites)
@@ -69,6 +70,7 @@ class Game:
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
         self.main_sprites.draw(self.screen)
+        self.bullet_sprites.draw(self.screen)
         self.enemy_sprites.draw(self.screen)
         pygame.display.flip()
 
