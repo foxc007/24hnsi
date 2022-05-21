@@ -29,5 +29,6 @@ class Enemy(pygame.sprite.Sprite):
             self.coordinates = (self.coordinates[0], self.coordinates[1] + 2 * self.game.speed_coef)
             self.rect.topleft = self.coordinates
             if self.coordinates[1] > screenutils.get_heigth():
-                self.delete()
+                self.level_manager.on_enemy_deleted()
+                self.kill()
         # Update
