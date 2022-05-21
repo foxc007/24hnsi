@@ -30,7 +30,7 @@ class Enemy(pygame.sprite.Sprite):
         if self.life <= 0:
             #if randint(0, 10) <= self.score:
             if True:
-                self.game.powerup_sprites.add(powerup.Powerup(self.game, 0))
+                self.game.powerup_sprites.add(powerup.Powerup(self.game, 0, self.rect.center))
             self.delete()
         else:
             pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/alien_degat{randint(1, 5)}.ogg'))

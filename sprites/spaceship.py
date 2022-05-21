@@ -46,14 +46,24 @@ class Spaceship(pygame.sprite.Sprite):
             hit = True
             break
 
-        for powerup_collided in pygame.sprite.spritecollide(self, self.game.powerup_sprites, False):
-            bullet_collided.kill()
-            hit = True
-            break
         if hit:
             self.game.remove_health()
             pygame.mixer.Sound.play(pygame.mixer.Sound(
                 f'assets/sounds/player_hurt.ogg'))
+
+        hit = False
+        for powerup_collided in pygame.sprite.spritecollide(self, self.game.powerup_sprites, False):
+            powerups.add((powerup_collided.powerup_type, time.time()))
+            powerup_collided.kill()
+            hit = True
+            break
+        if hit:
+            self.game.remove_health()
+            pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/player_hurt.ogg')) 
+
+        for powerup in self.powerups:
+            if (time.time() - powerup[1] > 30):
+                self.powerups.remove(powerup)
 
     def move(self):
         if self.rect.centerx + self.inertia > self.screen_size[0]:

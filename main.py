@@ -158,6 +158,7 @@ class Game:
             self.enemy_bullet_sprites.empty()
             self.level_manager = level_manager.LevelManager(self)
             self.level_manager.run_level()
+            self.switch_music()
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
