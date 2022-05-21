@@ -7,7 +7,7 @@ from sprites.spaceship import Spaceship
 from sprites.enemy import Enemy
 from sprites.background import Background
 import level_manager
-from utils import fileutils
+from utils import fileutils, screenutils
 
 if not pygame.font:
     print('Attention, polices désactivées')
@@ -95,16 +95,14 @@ class Game:
         self.bullet_sprites.update()
         self.enemy_sprites.update()
 
-    def remove_health():
-        self.health -+ 1
-        if self.health == 0:
-            font = pygame.font.Font(None, 36)
-            text = font.render("Pummel The Chimp, And Win $$$", 1, (10, 10, 10))
-            textpos = text.get_rect(centerx=background.get_width()/2)
-            background.blit(text, textpos)
+    def remove_health(self):
+        self.health = self.health - 1
+        if self.health <= 0:
+            self.running = False
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
+        #self.background.blit(text, textpos)
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
         self.enemy_sprites.draw(self.screen)

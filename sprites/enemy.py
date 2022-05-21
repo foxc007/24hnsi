@@ -31,7 +31,4 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         self.on_update(self)
-        if self.rect.bottom > screenutils.get_heigth():
-            self.level_manager.on_enemy_deleted()
-            self.kill()
         # Update
