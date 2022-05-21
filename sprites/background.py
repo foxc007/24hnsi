@@ -12,9 +12,9 @@ class Background(pygame.sprite.Sprite):
         self.image, self.rect = fileutils.load_image("ingame_background.png")
         self.screen_width, self.screen_height = pygame.display.get_window_size()
         self.image = pygame.transform.scale(
-            self.image, (self.screen_width, self.screen_width*2))
-        self.rect.update((0, -self.screen_height),
-                         (self.screen_width, self.screen_width*2))
+            self.image, (self.screen_width, self.screen_width*16))
+        self.rect.update((0, - 8 * self.screen_width),
+                         (self.screen_width, self.screen_width*16))
 
         self.scrolling = False
 
@@ -32,7 +32,7 @@ class Background(pygame.sprite.Sprite):
     def update(self):
         self.speed = 1 * self.game.speed_coef
         if self.scrolling:
-            if self.rect.centery > self.screen_width:
-                self.rect.centery = self.rect.centery-self.screen_width
+            if self.rect.centery > 8 * self.screen_width:
+                self.rect.centery = self.rect.centery - 8 * self.screen_width
             else:
                 self.rect.centery += self.speed
