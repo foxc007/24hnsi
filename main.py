@@ -138,6 +138,9 @@ class Game:
         self.screen.blit(self.background.image, self.background.rect)
 
         hp_text = self.font.render('HP : ' + str(self.health), True, (245, 14, 78))
+        pygame.draw.rect(self.screen,(128,128,128),(180,20,150,30))
+        pygame.draw.rect(self.screen,(0,255,0),(180,20,50*self.health,30))
+        
         self.screen.blit(hp_text, (20, 20))
 
         score_text = self.font.render('Score : ' + str(self.score), True, (245, 14, 78))
