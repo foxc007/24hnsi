@@ -24,11 +24,18 @@ class Game:
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Space invaders')
         pygame.mouse.set_visible(0)
+        self.speed_coef = 1
 
-        self.background = Background()
+        self.background = Background(self)
         self.background.start()
         self.screen.blit(self.background.image, self.background.rect)
         pygame.display.flip()
+
+        pygame.mixer.init()
+        pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
+        pygame.mixer.music.play()
+        pygame.mixer.music.queue('assets/sounds/loop_musique.ogg','ogg',-1)
+
 
         self.main_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
