@@ -15,7 +15,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.rect.y = self.screen_size[1]*5//6
         self.base_speed = 10
         self.inertia = 0
-        self.base_reload_time = 1000
+        self.base_reload_time = 600
         self.last_shot_time = 0
 
     def update(self, keys_pressed: list):
@@ -36,7 +36,6 @@ class Spaceship(pygame.sprite.Sprite):
             self.inertia = self.inertia/1.1
             self.move()
 
-
         if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.reload_time / 1000:
             self.last_shot_time = time.time()
             self.shoot()
@@ -47,7 +46,8 @@ class Spaceship(pygame.sprite.Sprite):
             break
         if hit:
             self.game.remove_health()
-            pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/player_hurt.ogg'))
+            pygame.mixer.Sound.play(pygame.mixer.Sound(
+                f'assets/sounds/player_hurt.ogg'))
 
     def move(self):
         if self.rect.centerx + self.inertia > self.screen_size[0]:
@@ -58,5 +58,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.centerx += round(self.inertia)
 
     def shoot(self):
-        self.game.bullet_sprites.add(bullet.Bullet(self.game,self.rect.centerx, self.rect.top, 0))
-        pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/shoot_sound.ogg'))
+        self.game.bullet_sprites.add(bullet.Bullet(
+            self.game, self.rect.centerx, self.rect.top, 0))
+        pygame.mixer.Sound.play(pygame.mixer.Sound(
+            f'assets/sounds/shoot_sound.ogg'))

@@ -14,7 +14,7 @@ class Bullet(pygame.sprite.Sprite):
             self.image, self.rect = game.images["bullet"]
             self.image = self.image.copy()
             self.rect = self.rect.copy()
-            self.rect.size = (50, 50)
+            self.rect.size = (30, 30)
             self.image = pygame.transform.scale(
                 self.image, (self.rect.width, self.rect.height))
             self.rect.centerx, self.rect.bottom = start_x, start_y+30
@@ -22,7 +22,7 @@ class Bullet(pygame.sprite.Sprite):
             self.image, self.rect = game.images["simple_enemy_bullet"]
             self.image = self.image.copy()
             self.rect = self.rect.copy()
-            self.rect.size = (50, 50)
+            self.rect.size = (30, 30)
             self.image = pygame.transform.scale(
                 self.image, (self.rect.width, self.rect.height))
             self.rect.centerx, self.rect.top = start_x, start_y-30
