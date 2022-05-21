@@ -23,22 +23,28 @@ class Game:
         self.height = screenInfos.current_h
 
         self.alien_death_sounds = []
-        self.alien_death_sounds.append(fileutils.load_sound('alien_death1.ogg'))
-        self.alien_death_sounds.append(fileutils.load_sound('alien_death2.ogg'))
-        self.alien_death_sounds.append(fileutils.load_sound('alien_death3.ogg'))
-        self.alien_death_sounds.append(fileutils.load_sound('alien_death4.ogg'))
-        self.alien_death_sounds.append(fileutils.load_sound('alien_death5.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_death1.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_death2.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_death3.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_death4.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_death5.ogg'))
 
         self.alien_death_sounds = []
-        self.alien_death_sounds.append(fileutils.load_sound('alien_sound1.ogg'))
-        self.alien_death_sounds.append(fileutils.load_sound('alien_sound2.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_sound1.ogg'))
+        self.alien_death_sounds.append(
+            fileutils.load_sound('alien_sound2.ogg'))
 
         self.boss_music = fileutils.load_sound('boss_music.ogg')
 
         self.menu_sound = fileutils.load_sound('menu_sound.ogg')
 
         self.player_death = fileutils.load_sound('player_death.ogg')
-
 
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Space invaders')
@@ -58,6 +64,7 @@ class Game:
         self.main_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
+        self.enemy_bullet_sprites = pygame.sprite.Group()
         self.spaceship = Spaceship(self.screen, self)
         self.spaceship.add(self.main_sprites)
 
@@ -94,20 +101,23 @@ class Game:
         self.background.update()
         self.bullet_sprites.update()
         self.enemy_sprites.update()
+        self.enemy_bullet_sprites.update()
 
-    def remove_health():
-        self.health -+ 1
+    def remove_health(self):
+        self.health - + 1
         if self.health == 0:
             font = pygame.font.Font(None, 36)
-            text = font.render("Pummel The Chimp, And Win $$$", 1, (10, 10, 10))
-            textpos = text.get_rect(centerx=background.get_width()/2)
-            background.blit(text, textpos)
+            text = font.render(
+                "Pummel The Chimp, And Win $$$", 1, (10, 10, 10))
+            textpos = text.get_rect(centerx=self.background.get_width()/2)
+            self.background.blit(text, textpos)
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
         self.enemy_sprites.draw(self.screen)
+        self.enemy_bullet_sprites.draw(self.screen)
         pygame.display.flip()
 
 

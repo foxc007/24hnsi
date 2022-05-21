@@ -17,7 +17,14 @@ class Bullet(pygame.sprite.Sprite):
             self.rect.size = (50, 50)
             self.image = pygame.transform.scale(
                 self.image, (self.rect.width, self.rect.height))
-        self.rect.centerx, self.rect.bottom = start_x, start_y+30
+            self.rect.centerx, self.rect.bottom = start_x, start_y+30
+        elif self.bullet_type == 1:
+            self.image, self.rect = fileutils.load_image(
+                'simple_enemy_bullet.jpg', colorkey=-1)
+            self.rect.size = (50, 50)
+            self.image = pygame.transform.scale(
+                self.image, (self.rect.width, self.rect.height))
+            self.rect.centerx, self.rect.top = start_x, start_y-30
 
     def update(self):
         if self.bullet_type == 0:
@@ -31,4 +38,7 @@ class Bullet(pygame.sprite.Sprite):
                 break
             if hit:
                 self.kill()
-        # Update
+        elif self.bullet_type == 1:
+            self.rect.y += 10
+            if self.rect.bottom > screenutils.get_heigth():
+                self.kill()
