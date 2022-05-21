@@ -21,7 +21,7 @@ class LevelManager:
         x = random.randint(500, screenutils.get_width()-500)
         y = -screenutils.get_heigth() * 0.05
         self.game.enemy_sprites.add(
-            Warrior(self.game, self, (x, y), 2))
+            Striker(self.game, self, (x, y), 2))
 
     def on_enemy_deleted(self):
         self.enemies -= 1

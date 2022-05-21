@@ -76,8 +76,10 @@ class Game:
         self.keys_pressed = []
 
         self.health = 3
+        self.score = 0
 
         self.running = True
+        self.font = pygame.font.SysFont(None, 48)
 
         while self.running:
             self.clock.tick(60)
@@ -94,7 +96,8 @@ class Game:
                     self.running = False
                 self.keys_pressed.append(event.key)
             elif event.type == KEYUP:
-                self.keys_pressed.remove(event.key)
+                if event.key in self.keys_pressed:
+                    self.keys_pressed.remove(event.key)
 
     def logic(self):
         self.spaceship.update(self.keys_pressed)
@@ -106,11 +109,34 @@ class Game:
     def remove_health(self):
         self.health = self.health - 1
         if self.health <= 0:
-            self.running = False
+            local_running = True
+            while local_running:
+                self.clock.tick(60)
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        self.running = False
+                        local_running = False
+                    elif event.type == KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            self.running = False
+                            local_running = False
+                        if event.key == K_SPACE:
+                            local_running = False
+                hp_text = self.font.render('YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
+                self.screen.blit(hp_text, (self.width / 2, self.height / 2))
+                pygame.display.flip()
+            self.health = 3
+            self.score = 0
+
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
-        #self.background.blit(text, textpos)
+
+        hp_text = self.font.render('HP : ' + str(self.health), True, (245, 14, 78))
+        self.screen.blit(hp_text, (20, 20))
+
+        score_text = self.font.render('Score : ' + str(self.score), True, (245, 14, 78))
+        self.screen.blit(score_text, (20, 60))
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
         self.enemy_sprites.draw(self.screen)
