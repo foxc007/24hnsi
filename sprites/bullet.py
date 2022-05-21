@@ -21,7 +21,13 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         if self.bullet_type == 0:
-            self.rect.top -= 25
+            self.rect.top -= 10
             if self.rect.top < 0:
                 self.kill()
+        hit = False
+        for enemy_hit in pygame.sprite.spritecollide(self, self.game.enemy_sprites, False):
+            enemy_hit.delete()
+            hit = True
+        if hit:
+            self.kill()
         # Update
