@@ -3,6 +3,7 @@ from pygame.locals import *
 from utils import fileutils
 import level_manager
 from utils import screenutils
+from random import randint
 
 class Enemy(pygame.sprite.Sprite): 
     """Enemy class"""
@@ -20,6 +21,7 @@ class Enemy(pygame.sprite.Sprite):
     def delete(self):
             self.level_manager.on_enemy_deleted()
             self.kill()
+            pygame.mixer.Sound.play(fileutils.load_sound(f'alien_death{randint(1,5)}.ogg'))
 
 
     def update(self):
