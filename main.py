@@ -127,7 +127,7 @@ class Game:
                 self.screen.blit(hp_text, (self.width / 2, self.height / 2))
                 pygame.display.flip()
             self.health = 3
-            self.score = 0
+            self.score = 0 
             self.enemy_sprites.empty()
             self.enemy_bullet_sprites.empty()
             self.level_manager = level_manager.LevelManager(self)
