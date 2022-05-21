@@ -23,6 +23,7 @@ class Game:
         self.width = screenInfos.current_w
         self.height = screenInfos.current_h
         self.last_music_change = 0
+        self.last_button_change = time.time()
         self.alien_death_sounds = []
         self.alien_death_sounds.append(
             fileutils.load_sound('alien_death1.ogg'))
@@ -75,13 +76,11 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.level_manager = level_manager.LevelManager(self)
-        self.level_manager.run_level()
+        self.menu_opened = True
+        self.menu_button_selected = 0
 
+        
         self.keys_pressed = []
-
-        self.health = 3
-        self.score = 0
 
         self.running = True
         self.font = pygame.font.SysFont(None, 48)
@@ -89,19 +88,79 @@ class Game:
         while self.running:
             self.clock.tick(60)
             self.handle_events()
-            self.logic()
-            self.render()
+            if not self.menu_opened:
+                self.logic()
+                self.render()
+            else:
+                self.menu()
+                
+                
+    def menu(self):
+
+        if self.menu_button_selected == 0:
+            pygame.draw.rect(self.screen,(0,255,0),(200,500,500,80))
+            pygame.draw.rect(self.screen,(128,128,128),(710,500,500,80))
+            pygame.draw.rect(self.screen,(128,128,128),(1220,500,500,80))
+        elif self.menu_button_selected == 1:
+            pygame.draw.rect(self.screen,(128,128,128),(200,500,500,80))
+            pygame.draw.rect(self.screen,(0,255,0),(710,500,500,80))
+            pygame.draw.rect(self.screen,(128,128,128),(1220,500,500,80))
+        else:
+            pygame.draw.rect(self.screen,(128,128,128),(200,500,500,80))
+            pygame.draw.rect(self.screen,(128,128,128),(710,500,500,80))
+            pygame.draw.rect(self.screen,(0,255,0),(1220,500,500,80))
+        button1 = self.font.render('Play', True, (0,0,0))
+        button2 = self.font.render('Change music', True, (0,0,0))
+        button3 = self.font.render('Quit game', True, (0,0,0))
+        self.screen.blit(button1, (415, 525))
+        self.screen.blit(button2, (825, 525))
+        self.screen.blit(button3, (1380, 525))
+        pygame.display.flip()
+
+        if not (K_RIGHT in self.keys_pressed and K_LEFT in self.keys_pressed):
+
+            if K_RIGHT in self.keys_pressed and time.time() - self.last_button_change > 0.2:
+                self.last_button_change = time.time()
+                if self.menu_button_selected < 2:
+                    self.menu_button_selected += 1
+                else:
+                    self.menu_button_selected = 0
+            elif K_LEFT in self.keys_pressed and time.time() - self.last_button_change > 0.2:
+                self.last_button_change = time.time()
+                if self.menu_button_selected > 0:
+                    self.menu_button_selected -= 1
+                else:
+                    self.menu_button_selected = 2
+            
+            elif K_SPACE in self.keys_pressed or K_RETURN in self.keys_pressed:
+                if self.menu_button_selected == 0:
+                    self.menu_opened = False
+                    self.run_game()
+                elif self.menu_button_selected == 1:
+                    if K_RETURN in self.keys_pressed and time.time() - self.last_music_change > 0.5:
+                        self.last_music_change = time.time()
+                        self.switch_music()
+                else:
+                    pygame.quit()
+
+    def run_game(self):
+        self.level_manager = level_manager.LevelManager(self)
+        self.level_manager.run_level()
+        self.health = 3
+        self.score = 0
+
 
     def switch_music(self):
         if self.music == 0:
             pygame.mixer.music.unload()
-            pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
+            pygame.mixer.music.load('assets/sounds/musique_2.ogg')
             pygame.mixer.music.play()
             self.music = 1
         else:
             pygame.mixer.music.unload()
-            pygame.mixer.music.load('assets/sounds/musique_2.ogg')
+            pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
             pygame.mixer.music.play()
+            pygame.mixer.music.queue('assets/sounds/loop_musique.ogg')
             self.music = 0
 
     def handle_events(self):
