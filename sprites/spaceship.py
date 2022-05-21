@@ -17,8 +17,10 @@ class Spaceship(pygame.sprite.Sprite):
         self.inertia = 0
         self.base_reload_time = 600
         self.last_shot_time = 0
+        self.powerups = []
 
     def update(self, keys_pressed: list):
+
         self.speed = self.base_speed*self.game.speed_coef
         self.reload_time = self.base_reload_time/self.game.speed_coef
 
@@ -44,10 +46,25 @@ class Spaceship(pygame.sprite.Sprite):
             bullet_collided.kill()
             hit = True
             break
+
         if hit:
             self.game.remove_health()
             pygame.mixer.Sound.play(pygame.mixer.Sound(
                 f'assets/sounds/player_hurt.ogg'))
+
+        hit = False
+        for powerup_collided in pygame.sprite.spritecollide(self, self.game.powerup_sprites, False):
+            self.powerups.append((powerup_collided.powerup_type, time.time()))
+            powerup_collided.kill()
+            hit = True
+            break
+        if hit:
+            pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/powerup.ogg'))
+
+
+        for powerup in self.powerups:
+            if (time.time() - powerup[1] > 15):
+                self.powerups.remove(powerup)
 
     def move(self):
         if self.rect.centerx + self.inertia > self.screen_size[0]:
@@ -58,7 +75,22 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.centerx += round(self.inertia)
 
     def shoot(self):
-        self.game.bullet_sprites.add(bullet.Bullet(
-            self.game, self.rect.centerx, self.rect.top, 0))
-        pygame.mixer.Sound.play(pygame.mixer.Sound(
-            f'assets/sounds/shoot_sound.ogg'))
+        bullet_type = 0
+        bullets = 1
+        for powerup in self.powerups:
+            if powerup[0] == 0:
+                bullet_type = 2
+            elif powerup[0] == 1:
+                bullets += 1
+        if bullets > 3:
+            bullets = 3
+        if bullets == 1:
+            self.game.bullet_sprites.add(bullet.Bullet(self.game, self.rect.centerx - 10, self.rect.top, bullet_type))
+        elif bullets == 2:
+            self.game.bullet_sprites.add(bullet.Bullet(self.game, self.rect.centerx - 15, self.rect.top, bullet_type))
+            self.game.bullet_sprites.add(bullet.Bullet(self.game, self.rect.centerx + 15, self.rect.top, bullet_type))
+        elif bullets == 3:
+            self.game.bullet_sprites.add(bullet.Bullet(self.game, self.rect.centerx - 15, self.rect.top, bullet_type))
+            self.game.bullet_sprites.add(bullet.Bullet(self.game, self.rect.centerx, self.rect.top, bullet_type))
+            self.game.bullet_sprites.add(bullet.Bullet(self.game, self.rect.centerx + 15, self.rect.top, bullet_type))
+        pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/shoot_sound.ogg'))

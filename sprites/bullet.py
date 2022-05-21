@@ -10,7 +10,8 @@ class Bullet(pygame.sprite.Sprite):
         self.game = game
         self.level_manager = level_manager
         self.bullet_type = bullet_type
-        if self.bullet_type == 0:
+        self.enemies_hit = []
+        if self.bullet_type == 0 or self.bullet_type == 2:
             self.image, self.rect = game.images["bullet"]
             self.image = self.image.copy()
             self.rect = self.rect.copy()
@@ -28,17 +29,17 @@ class Bullet(pygame.sprite.Sprite):
             self.rect.centerx, self.rect.top = start_x, start_y-30
 
     def update(self):
-        if self.bullet_type == 0:
+        if self.bullet_type == 0 or self.bullet_type == 2:
             self.rect.top -= 10
             if self.rect.top < 0:
                 self.kill()
-            hit = False
             for enemy in pygame.sprite.spritecollide(self, self.game.enemy_sprites, False):
-                enemy.hit()
-                hit = True
-                break
-            if hit:
-                self.kill()
+                if (enemy not in self.enemies_hit):
+                    enemy.hit()
+                    self.enemies_hit.append(enemy)
+                    if self.bullet_type == 0:
+                        self.kill()
+                        break
         elif self.bullet_type == 1:
             self.rect.y += 10
             if self.rect.bottom > screenutils.get_heigth():
