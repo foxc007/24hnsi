@@ -12,7 +12,7 @@ class Background(pygame.sprite.Sprite):
         self.rect.update((0,-self.screen_height),(self.screen_width, self.screen_width*2))
 
         self.scrolling = False
-        self.speed = 10
+        self.speed = 1
 
     def start(self):
         self.scrolling = True

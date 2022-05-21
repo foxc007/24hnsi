@@ -19,7 +19,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self):
         if self.enemy_type == 0:
-            self.coordinates = (self.coordinates[0], self.coordinates[1] + 2)
+            self.coordinates = (self.coordinates[0], self.coordinates[1] + 5)
             self.rect.topleft = self.coordinates
             if self.coordinates[1] > screenutils.get_heigth():
                 self.level_manager.on_enemy_deleted()

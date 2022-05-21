@@ -1,43 +1,25 @@
 import pygame
 from pygame.locals import *
-from utils.fileutils import load_image, load_sound
-import time
+from utils import fileutils
+import level_manager
+from utils import screenutils
 
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, start_x, start_y, bullet_type):
+        pygame.sprite.Sprite.__init__(self)        #Appel du constructeur de Sprite
+        self.level_manager = level_manager
+        self.bullet_type = bullet_type
+        self.coordinates = (start_x, start_y)
+        if self.bullet_type == 0:
+            self.image, self.rect = fileutils.load_image('bullet.jpg')
+        self.rect.topleft = self.coordinates
+        screen = pygame.display.get_surface()
+        
 
-class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, screen: pygame.Surface):
-        pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_image('spaceship.png')
-        self.screen_size = screen.get_size()
-        self.rect.centerx = self.screen_size[0] / 2
-        self.rect.y = self.screen_size[1]*5//6
-        self.speed = 10
-        self.last_shot_time = 0
-
-    def update(self, keys_pressed: list):
-        self.time_between_shots = 1000
-        if not (K_LEFT in keys_pressed and K_RIGHT in keys_pressed):
-            if K_LEFT in keys_pressed:
-                self.move_left()
-            elif K_RIGHT in keys_pressed:
-                self.move_right()
-        if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.time_between_shots:
-            self.last_shot_time = time.time()
-            self.shoot()
-
-
-
-    def move_right(self):
-        if self.rect.right + self.speed > self.screen_size[0]:
-            self.rect.right = self.screen_size[0]
-        else:
-            self.rect.right += self.speed
-
-    def move_left(self):
-        if self.rect.left - self.speed < 0:
-            self.rect.left = 0
-        else:
-            self.rect.left -= self.speed
-
-    def shoot(self):
-        pass
+    def update(self):
+        if self.bullet_type == 0:
+            self.coordinates = (self.coordinates[0], self.coordinates[1] - 2)
+            self.rect.topleft = self.coordinates
+            if self.coordinates[1] > screenutils.get_heigth():
+                self.kill()
+        # Update

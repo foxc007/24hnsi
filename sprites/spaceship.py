@@ -2,11 +2,13 @@ import pygame
 from pygame.locals import *
 from utils.fileutils import load_image, load_sound
 import time
+from sprites import bullet
 
 
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, game):
         pygame.sprite.Sprite.__init__(self)
+        self.game = game
         self.image, self.rect = load_image('spaceship.png')
         self.screen_size = screen.get_size()
         self.rect.centerx = self.screen_size[0] / 2
@@ -21,7 +23,7 @@ class Spaceship(pygame.sprite.Sprite):
                 self.move_left()
             elif K_RIGHT in keys_pressed:
                 self.move_right()
-        if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.time_between_shots:
+        if K_SPACE in keys_pressed and time.time() - self.last_shot_time > self.time_between_shots / 1000:
             self.last_shot_time = time.time()
             self.shoot()
 
@@ -40,4 +42,5 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.left -= self.speed
 
     def shoot(self):
+        self.game.enemy_sprites.add(bullet.Bullet(self.rect.center[0], self.rect.center[1], 0))
         pass

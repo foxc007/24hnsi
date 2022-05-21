@@ -32,7 +32,7 @@ class Game:
 
         self.main_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
-        self.spaceship = Spaceship(self.screen)
+        self.spaceship = Spaceship(self.screen, self)
         self.spaceship.add(self.main_sprites)
 
         self.clock = pygame.time.Clock()
