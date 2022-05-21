@@ -13,10 +13,11 @@ class Striker(Enemy):
         assert tier in [1, 2, 3]
         options = {}
         options["image"] = f"enemies/striker{tier}.png"
-        options["life"] = tier
         self.tier = tier
 
         if self.tier == 1:
+            options["score"] = 1
+            options["life"] = 1
             # Random angle mesured in gradients
             if sync:
                 self.random_angle = 0
@@ -29,6 +30,8 @@ class Striker(Enemy):
                 self.enter_screen_or_shoot()
 
         elif self.tier == 2:
+            options["score"] = 3
+            options["life"] = 3
             # Random angle mesured in gradients
             if sync:
                 self.random_angle = 0
@@ -46,6 +49,8 @@ class Striker(Enemy):
                     self.rect.y += round(4*cos(t+self.random_angle))
 
         elif self.tier == 3:
+            options["score"] = 5
+            options["life"] = 5
             # Random angle mesured in gradients
             if sync:
                 self.random_angle = 0
@@ -63,6 +68,7 @@ class Striker(Enemy):
                     self.rect.y += round(4*cos(2*(t+self.random_angle)))
 
         options["on_update"] = on_update
+
         Enemy.__init__(self, game, level_manager, pos, options)
 
         self.base_reload_time = 5000

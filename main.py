@@ -69,6 +69,7 @@ class Game:
 
         self.main_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
+        self.powerup_sprites = pygame.sprite.Group()
         self.enemy_sprites = pygame.sprite.Group()
         self.enemy_bullet_sprites = pygame.sprite.Group()
         self.spaceship = Spaceship(self.screen, self)
@@ -183,6 +184,7 @@ class Game:
         self.spaceship.update(self.keys_pressed)
         self.background.update()
         self.bullet_sprites.update()
+        self.powerup_sprites.update()
         self.enemy_sprites.update()
         self.enemy_bullet_sprites.update()
 
@@ -215,6 +217,7 @@ class Game:
             self.enemy_bullet_sprites.empty()
             self.level_manager = level_manager.LevelManager(self)
             self.level_manager.run_level()
+            self.switch_music()
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
@@ -232,6 +235,7 @@ class Game:
         self.screen.blit(score_text, (20, 60))
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
+        self.powerup_sprites.draw(self.screen)
         self.enemy_sprites.draw(self.screen)
         self.enemy_bullet_sprites.draw(self.screen)
         pygame.display.flip()
