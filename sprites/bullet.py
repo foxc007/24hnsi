@@ -18,18 +18,17 @@ class Bullet(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(
                 self.image, (self.rect.width, self.rect.height))
         self.rect.centerx, self.rect.bottom = start_x, start_y+30
-        screen = pygame.display.get_surface()
 
     def update(self):
         if self.bullet_type == 0:
             self.rect.top -= 10
             if self.rect.top < 0:
                 self.kill()
-        hit = False
-        for enemy_hit in pygame.sprite.spritecollide(self, self.game.enemy_sprites, False):
-            enemy_hit.delete()
-            hit = True
-            break
-        if hit:
-            self.kill()
+            hit = False
+            for enemy in pygame.sprite.spritecollide(self, self.game.enemy_sprites, False):
+                enemy.hit()
+                hit = True
+                break
+            if hit:
+                self.kill()
         # Update
