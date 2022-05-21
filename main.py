@@ -68,6 +68,8 @@ class Game:
 
         self.keys_pressed = []
 
+        self.health = 3
+
         self.running = True
 
         while self.running:
@@ -92,6 +94,14 @@ class Game:
         self.background.update()
         self.bullet_sprites.update()
         self.enemy_sprites.update()
+
+    def remove_health():
+        self.health -+ 1
+        if self.health == 0:
+            font = pygame.font.Font(None, 36)
+            text = font.render("Pummel The Chimp, And Win $$$", 1, (10, 10, 10))
+            textpos = text.get_rect(centerx=background.get_width()/2)
+            background.blit(text, textpos)
 
     def render(self):
         self.screen.blit(self.background.image, self.background.rect)
