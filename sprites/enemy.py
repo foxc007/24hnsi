@@ -4,6 +4,7 @@ from utils import fileutils
 import level_manager
 from utils import screenutils
 from random import randint
+from sprites import powerup
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -12,6 +13,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, game, level_manager, pos, options: dict):
         pygame.sprite.Sprite.__init__(self)  # Appel du constructeur de Sprite
         self.game = game
+        self.score = options["score"]
         self.level_manager = level_manager
         self.on_update = options["on_update"]
         self.image, self.rect = fileutils.load_image(options["image"])
@@ -26,6 +28,9 @@ class Enemy(pygame.sprite.Sprite):
     def hit(self, power=1):
         self.life -= power
         if self.life <= 0:
+            #if randint(0, 10) <= self.score:
+            if True:
+                self.game.powerup_sprites.add(powerup.Powerup(self.game, 0))
             self.delete()
         else:
             pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/alien_degat{randint(1, 5)}.ogg'))

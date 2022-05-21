@@ -17,6 +17,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.inertia = 0
         self.base_reload_time = 1000
         self.last_shot_time = 0
+        self.powerups = []
 
     def update(self, keys_pressed: list):
         self.speed = self.base_speed*self.game.speed_coef
@@ -42,6 +43,11 @@ class Spaceship(pygame.sprite.Sprite):
             self.shoot()
         hit = False
         for bullet_collided in pygame.sprite.spritecollide(self, self.game.enemy_bullet_sprites, False):
+            bullet_collided.kill()
+            hit = True
+            break
+
+        for powerup_collided in pygame.sprite.spritecollide(self, self.game.powerup_sprites, False):
             bullet_collided.kill()
             hit = True
             break
