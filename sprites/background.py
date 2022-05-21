@@ -2,10 +2,10 @@ import pygame
 from pygame.locals import *
 from utils import fileutils
 
-class Background(pygame.sprite.Sprite, game): 
+class Background(pygame.sprite.Sprite): 
     """Background class"""
-    self.game = game
-    def __init__(self):
+    def __init__(self, game):
+        self.game = game
         pygame.sprite.Sprite.__init__(self)        #Appel du constructeur de Sprite
         self.image, self.rect = fileutils.load_image("ingame_background.png")
         self.screen_width, self.screen_height = pygame.display.get_window_size()

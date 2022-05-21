@@ -32,7 +32,7 @@ class Game:
         pygame.display.flip()
 
         #pygame.mixer.init()
-        #self.music_intro = pygame.mixer.music.load('assets/sounds/debut_musique.wav')
+        #self.music_intro = pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
         #pygame.mixer.music.play(self.music_intro)
 
 
