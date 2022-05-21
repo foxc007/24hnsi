@@ -2,14 +2,14 @@ import random
 from utils import screenutils
 from sprites import enemy
 
+
 class LevelManager:
     def __init__(self, game):
         self.game = game
         self.enemies = 0
 
-
     def run_level(self):
-        for i in range(5):
+        for i in range(3):
             self.create_enemy()
             self.enemies += 1
         self.game.speed_coef += 0.1
