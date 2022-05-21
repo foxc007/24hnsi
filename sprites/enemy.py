@@ -16,12 +16,17 @@ class Enemy(pygame.sprite.Sprite):
         self.on_update = options["on_update"]
         self.image, self.rect = fileutils.load_image(options["image"])
         self.life = options["life"]
-        if  list(options.keys()).count("size") > 0:
+        if list(options.keys()).count("size") > 0:
             self.rect.size = options["size"]
         else:
             self.rect.size = (64, 64)
         self.image = pygame.transform.scale(self.image, self.rect.size)
         self.rect.center = pos
+
+    def hit(self, power=1):
+        self.life -= power
+        if self.life <= 0:
+            self.delete()
 
     def delete(self):
         self.level_manager.on_enemy_deleted()
