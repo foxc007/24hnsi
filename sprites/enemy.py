@@ -27,6 +27,8 @@ class Enemy(pygame.sprite.Sprite):
         self.life -= power
         if self.life <= 0:
             self.delete()
+        else:
+            pygame.mixer.Sound.play(pygame.mixer.Sound(f'assets/sounds/alien_degat{randint(1, 5)}.ogg'))
 
     def delete(self):
         self.game.score += 1
