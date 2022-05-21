@@ -129,6 +129,7 @@ class Game:
             self.health = 3
             self.score = 0
             self.enemy_sprites.empty()
+            self.enemy_bullet_sprites.empty()
             self.level_manager = level_manager.LevelManager(self)
             self.level_manager.run_level()
 
