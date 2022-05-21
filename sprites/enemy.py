@@ -34,8 +34,7 @@ class Enemy(pygame.sprite.Sprite):
         self.game.score += 1
         self.level_manager.on_enemy_deleted()
         self.kill()
-        pygame.mixer.Sound.play(self.game.alien_death_sounds[randint(
-            0, len(self.game.alien_death_sounds)-1)])
+        pygame.mixer.Sound.play(self.game.alien_death_sounds[randint(0, len(self.game.alien_death_sounds)-1)])
 
     def update(self):
         self.on_update(self)
