@@ -119,7 +119,7 @@ class Game:
 
         if self.has_played:
             hp_text = self.font.render('YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
-            self.screen.blit(hp_text, (self.width / 2, self.height / 2))
+            self.screen.blit(hp_text, (self.width / 2 - 100, self.height / 2 + 50))
         pygame.display.flip()
 
         if not (K_RIGHT in self.keys_pressed and K_LEFT in self.keys_pressed):
@@ -210,13 +210,11 @@ class Game:
         hp_text = self.font.render(
             'HP : ' + str(self.health), True, (245, 14, 78))
         pygame.draw.rect(self.screen, (128, 128, 128), (180, 20, 150, 30))
-        pygame.draw.rect(self.screen, (0, 255, 0),
-                         (180, 20, 50*self.health, 30))
+        pygame.draw.rect(self.screen, (0, 255, 0), (180, 20, 50*self.health, 30))
 
         self.screen.blit(hp_text, (20, 20))
 
-        score_text = self.font.render(
-            'Score : ' + str(self.score), True, (245, 14, 78))
+        score_text = self.font.render('Score : ' + str(self.score), True, (245, 14, 78))
         self.screen.blit(score_text, (20, 60))
         self.main_sprites.draw(self.screen)
         self.bullet_sprites.draw(self.screen)
