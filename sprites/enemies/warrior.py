@@ -12,7 +12,10 @@ class Warrior(Enemy):
         options["life"] = tier
 
         def on_update(self):
-            self.rect.top += 1
+            if self.rect.top < 50:
+                self.rect.top += 2 * self.game.speed_coef
+            else:
+                self.rect.top += 1 * self.game.speed_coef
             if self.rect.bottom > screenutils.get_heigth():
                 self.level_manager.on_enemy_deleted()
                 self.kill()
