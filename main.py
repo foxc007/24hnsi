@@ -97,31 +97,29 @@ class Game:
     def menu(self):
 
         if self.menu_button_selected == 0:
-            pygame.draw.rect(self.screen, (0, 255, 0), (200, 500, 500, 80))
-            pygame.draw.rect(self.screen, (128, 128, 128), (710, 500, 500, 80))
-            pygame.draw.rect(self.screen, (128, 128, 128),
-                             (1220, 500, 500, 80))
+            pygame.draw.rect(self.screen, (0, 255, 0), (200/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (710/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (1220/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
         elif self.menu_button_selected == 1:
-            pygame.draw.rect(self.screen, (128, 128, 128), (200, 500, 500, 80))
-            pygame.draw.rect(self.screen, (0, 255, 0), (710, 500, 500, 80))
-            pygame.draw.rect(self.screen, (128, 128, 128),
-                             (1220, 500, 500, 80))
+            pygame.draw.rect(self.screen, (128, 128, 128), (200/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (0, 255, 0), (710/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (1220/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
         else:
-            pygame.draw.rect(self.screen, (128, 128, 128), (200, 500, 500, 80))
-            pygame.draw.rect(self.screen, (128, 128, 128), (710, 500, 500, 80))
-            pygame.draw.rect(self.screen, (0, 255, 0), (1220, 500, 500, 80))
+            pygame.draw.rect(self.screen, (128, 128, 128), (200/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (710/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (0, 255, 0), (1220/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
         button1 = self.font.render('Play', True, (0, 0, 0))
         button2 = self.font.render('Change music', True, (0, 0, 0))
         button3 = self.font.render('Quit game', True, (0, 0, 0))
-        self.screen.blit(button1, (415, 525))
-        self.screen.blit(button2, (825, 525))
-        self.screen.blit(button3, (1380, 525))
+        self.screen.blit(button1, (415/1920 * self.width, 525/1080 * self.height))
+        self.screen.blit(button2, (825/1920 * self.width, 525/1080 * self.height))
+        self.screen.blit(button3, (1380/1920 * self.width, 525/1080 * self.height))
 
         if self.has_played:
             hp_text = self.font.render(
                 'YOU DEAD, SCORE = ' + str(self.score), True, (245, 14, 78))
             self.screen.blit(
-                hp_text, (self.width / 2 - 100, self.height / 2 + 50))
+                hp_text, (860/1920 * self.width, 590/1080 * self.height))
         pygame.display.flip()
 
         if not (K_RIGHT in self.keys_pressed and K_LEFT in self.keys_pressed):
@@ -158,7 +156,6 @@ class Game:
         self.enemy_bullet_sprites.empty()
         self.level_manager = level_manager.LevelManager(self)
         self.level_manager.run_level()
-        self.switch_music()
         self.has_played = True
 
     def switch_music(self):
