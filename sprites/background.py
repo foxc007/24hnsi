@@ -30,7 +30,7 @@ class Background(pygame.sprite.Sprite):
         self.rect.centery = 0
 
     def update(self):
-        self.speed = 1 * self.game.speed_coef
+        self.speed = 2 * self.game.speed_coef
         if self.scrolling:
             if self.rect.centery > 8 * self.screen_width:
                 self.rect.centery = self.rect.centery - 8 * self.screen_width
