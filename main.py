@@ -18,12 +18,21 @@ if not pygame.mixer:
 
 class Game:
     def __init__(self):
+        # Initialisation de pygame
         pygame.init()
         screenInfos = pygame.display.Info()
         self.width = screenInfos.current_w
         self.height = screenInfos.current_h
+
+        # Préparation de la mise à l'échelle
+        self.x_coeff = screenutils.compute_.x_coeff()
+        self.y_coeff = screenutils.compute_y_coeff()
+
+        # Préparation de la musique et du menu
         self.last_music_change = 0
         self.last_button_change = time.time()
+
+        # Chargement des sons
         self.alien_death_sounds = []
         self.alien_death_sounds.append(
             fileutils.load_sound('alien_death1.ogg'))
@@ -46,27 +55,32 @@ class Game:
 
         self.player_death = fileutils.load_sound('player_death.ogg')
 
+        # Initialisation de la fenêtre
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Space invaders')
         pygame.mouse.set_visible(0)
         self.speed_coef = 1
 
+        # Initialisation de l'arrière plan
         self.background = Background(self)
         self.background.start()
         self.screen.blit(self.background.image, self.background.rect)
         pygame.display.flip()
 
+        # Chargement de certaines images
         self.images = {}
         self.images["bullet"] = fileutils.load_image("bullet.png")
         self.images["simple_enemy_bullet"] = fileutils.load_image(
             "simple_enemy_bullet.png")
 
+        # Chargement de la musique
         pygame.mixer.init()
         pygame.mixer.music.load('assets/sounds/debut_musique.ogg')
         pygame.mixer.music.play()
         pygame.mixer.music.queue('assets/sounds/loop_musique.ogg', 'ogg', -1)
         self.music = 0
 
+        # Création des groupes de sprites
         self.main_sprites = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.powerup_sprites = pygame.sprite.Group()
@@ -75,6 +89,7 @@ class Game:
         self.spaceship = Spaceship(self.screen, self)
         self.spaceship.add(self.main_sprites)
 
+        # Initialisation de l'horloge
         self.clock = pygame.time.Clock()
 
         self.menu_opened = True
@@ -85,6 +100,8 @@ class Game:
         self.running = True
         self.font = pygame.font.SysFont(None, 48)
         self.has_played = False
+
+        # Boucle principale
         while self.running:
             self.clock.tick(60)
             self.handle_events()
@@ -97,23 +114,35 @@ class Game:
     def menu(self):
 
         if self.menu_button_selected == 0:
-            pygame.draw.rect(self.screen, (0, 255, 0), (200/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
-            pygame.draw.rect(self.screen, (128, 128, 128), (710/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
-            pygame.draw.rect(self.screen, (128, 128, 128), (1220/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (0, 255, 0), (200/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (710/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (1220/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
         elif self.menu_button_selected == 1:
-            pygame.draw.rect(self.screen, (128, 128, 128), (200/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
-            pygame.draw.rect(self.screen, (0, 255, 0), (710/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
-            pygame.draw.rect(self.screen, (128, 128, 128), (1220/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (200/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (0, 255, 0), (710/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (1220/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
         else:
-            pygame.draw.rect(self.screen, (128, 128, 128), (200/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
-            pygame.draw.rect(self.screen, (128, 128, 128), (710/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
-            pygame.draw.rect(self.screen, (0, 255, 0), (1220/1920 * self.width, 500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (200/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (128, 128, 128), (710/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
+            pygame.draw.rect(self.screen, (0, 255, 0), (1220/1920 * self.width,
+                             500/1080 * self.height, 500/1920 * self.width, 80/1080 * self.height))
         button1 = self.font.render('Play', True, (0, 0, 0))
         button2 = self.font.render('Change music', True, (0, 0, 0))
         button3 = self.font.render('Quit game', True, (0, 0, 0))
-        self.screen.blit(button1, (415/1920 * self.width, 525/1080 * self.height))
-        self.screen.blit(button2, (825/1920 * self.width, 525/1080 * self.height))
-        self.screen.blit(button3, (1380/1920 * self.width, 525/1080 * self.height))
+        self.screen.blit(
+            button1, (415/1920 * self.width, 525/1080 * self.height))
+        self.screen.blit(
+            button2, (825/1920 * self.width, 525/1080 * self.height))
+        self.screen.blit(
+            button3, (1380/1920 * self.width, 525/1080 * self.height))
 
         if self.has_played:
             hp_text = self.font.render(
@@ -190,6 +219,9 @@ class Game:
                     self.keys_pressed.remove(event.key)
 
     def logic(self):
+        self.x_coeff = screenutils.compute_x_coeff()
+        self.y_coeff = screenutils.compute_y_coeff()
+
         self.spaceship.update(self.keys_pressed)
         self.background.update()
         self.bullet_sprites.update()
