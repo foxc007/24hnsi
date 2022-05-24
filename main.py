@@ -25,7 +25,7 @@ class Game:
         self.height = screenInfos.current_h
 
         # Préparation de la mise à l'échelle
-        self.x_coeff = screenutils.compute_.x_coeff()
+        self.x_coeff = screenutils.compute_x_coeff()
         self.y_coeff = screenutils.compute_y_coeff()
 
         # Préparation de la musique et du menu
