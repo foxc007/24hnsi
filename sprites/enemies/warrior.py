@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from sprites.enemy import Enemy
 from utils import screenutils
+from utils.screenutils import y
 
 
 class Warrior(Enemy):
@@ -18,10 +19,10 @@ class Warrior(Enemy):
             options["score"] = 5
 
         def on_update(self):
-            if self.rect.top < 50:
-                self.rect.top += 2 * self.game.speed_coef
+            if self.rect.top < y(self.game, 50):
+                self.rect.top += y(self.game, 2 * self.game.speed_coef)
             else:
-                self.rect.top += 1 * self.game.speed_coef
+                self.rect.top += y(self.game, 1 * self.game.speed_coef)
             if self.rect.bottom > screenutils.get_heigth():
                 self.level_manager.on_enemy_deleted()
                 self.kill()

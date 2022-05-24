@@ -22,7 +22,7 @@ def responsive_x(game, x):
 
 
 def x(game, x):
-    responsive_x(game, x)
+    return responsive_x(game, x)
 
 
 def responsive_y(game, y):
@@ -30,7 +30,7 @@ def responsive_y(game, y):
 
 
 def y(game, y):
-    responsive_y(game, y)
+    return responsive_y(game, y)
 
 
 def responsive_size(game, size: tuple or list):

@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from utils.fileutils import load_image, load_sound
+from utils.screenutils import x
 import time
 from sprites import bullet
 
@@ -67,12 +68,12 @@ class Spaceship(pygame.sprite.Sprite):
                 self.powerups.remove(powerup)
 
     def move(self):
-        if self.rect.centerx + self.inertia > self.screen_size[0]:
+        if self.rect.centerx + x(self.game, self.inertia) > self.screen_size[0]:
             self.rect.left = 0
-        elif self.rect.centerx - self.inertia < 0:
+        elif self.rect.centerx - x(self.game, self.inertia) < 0:
             self.rect.right = self.screen_size[0]
         else:
-            self.rect.centerx += round(self.inertia)
+            self.rect.centerx += x(self.game, self.inertia)
 
     def shoot(self):
         bullet_type = 0
